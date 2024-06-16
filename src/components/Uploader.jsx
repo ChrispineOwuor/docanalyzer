@@ -24,10 +24,13 @@ const Uploader = () => {
     formData.append("filename", selectedFile);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_KEY}`, {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_KEY + "api/doc/"}`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
