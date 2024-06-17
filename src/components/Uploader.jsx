@@ -27,7 +27,7 @@ const Uploader = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_KEY + "api/docb/"}`,
+        `${import.meta.env.VITE_API_KEY + "api/doc/"}`,
         {
           method: "POST",
           body: formData,
