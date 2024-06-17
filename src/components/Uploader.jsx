@@ -27,7 +27,7 @@ const Uploader = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_KEY + "api/doc/"}`,
+        `${import.meta.env.VITE_API_KEY + "api/docb/"}`,
         {
           method: "POST",
           body: formData,
@@ -35,14 +35,14 @@ const Uploader = () => {
       );
 
       if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
+        throw new Error("Error submitting document");
       }
 
       const data = await response.json();
       setData(data.file);
       navigate("/");
     } catch (error) {
-      console.log(error);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
