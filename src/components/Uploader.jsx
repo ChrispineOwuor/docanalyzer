@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Uploader = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const { setData } = useContext(Fileuploadcontext);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleFileChange = (event) => {
@@ -15,8 +16,9 @@ const Uploader = () => {
 
   const Uploadfile = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (!selectedFile) {
-      alert("Please sect a file")
+      alert("Please sect a file");
       return;
     }
 
@@ -37,10 +39,12 @@ const Uploader = () => {
       }
 
       const data = await response.json();
-        setData(data.file);
-        navigate("/")
+      setData(data.file);
+      navigate("/");
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,14 +84,14 @@ const Uploader = () => {
           {" "}
           <button
             onClick={Uploadfile}
-            disabled={!selectedFile}
+            disabled={loading}
             className={`${
               !selectedFile
                 ? "bg-gray-200 mb-2 mt-4 text-xl w-max font-[300]  text-white rounded-lg px-2 py-1  tracking-tight"
                 : "bg-blue-700 mb-2 mt-4 text-xl w-max font-[300]  text-white rounded-lg px-2 py-1  tracking-tight "
             }`}
           >
-            Submit
+            {loading ? "Loading ..." : "Submit"}
           </button>
         </div>
       </div>
